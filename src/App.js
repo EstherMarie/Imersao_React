@@ -1,7 +1,12 @@
 import React from 'react';
+import Menu from './components/Menu';
 
 function App() {
-	return <div>Hello World! Happy Birthday to StarCraft II!</div>;
+	return (
+		<nav>
+			<Menu />
+		</nav>
+	);
 }
 
 export default App;
