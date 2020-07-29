@@ -12,7 +12,7 @@ function CadastroVideo() {
 const Pagina404 = () => (
 	<div className="contender404">
 		<h3>Eita!</h3>
-		<p>Parece que essa página não exite...</p>
+		<p>Parece que esta página não existe...</p>
 		<p>Que tal jogar um joguinho supimpa feito na Imersão GameDev? :)</p>
 		<iframe
 			style={{ width: '80vw', height: '40vh' }}
