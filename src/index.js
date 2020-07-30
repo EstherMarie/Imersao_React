@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -10,29 +11,30 @@ import CadastroCategoria from './pages/cadastro/categoria';
 import Footer from './components/Footer';
 
 const Pagina404 = () => (
-	<div className="contender404">
-		<Menu />
-		<h3>Eita!</h3>
-		<p>Parece que esta página não existe...</p>
-		<p>Que tal jogar um joguinho supimpa feito na Imersão GameDev? :)</p>
-		<iframe
-			style={{ width: '80vw', height: '40vh', margin: '10px 0 20px' }}
-			src="https://editor.p5js.org/Alni/embed/ccP0Z9meS"></iframe>
-		<Footer />
-	</div>
+  <div className="contender404">
+    <Menu />
+    <h3>Eita!</h3>
+    <p>Parece que esta página não existe...</p>
+    <p>Que tal jogar um joguinho supimpa feito na Imersão GameDev? :)</p>
+    <iframe
+      style={{ width: '80vw', height: '40vh', margin: '10px 0 20px' }}
+      src="https://editor.p5js.org/Alni/embed/ccP0Z9meS"
+    />
+    <Footer />
+  </div>
 );
 
 ReactDOM.render(
-	<BrowserRouter>
-		<Switch>
-			<Route path="/" component={Home} exact />
-			<Route path="/cadastro/video" component={CadastroVideo} />
-			<Route path="/cadastro/categoria" component={CadastroCategoria} />
-			<Route component={Pagina404} />
-		</Switch>
-	</BrowserRouter>,
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" component={Home} exact />
+      <Route path="/cadastro/video" component={CadastroVideo} />
+      <Route path="/cadastro/categoria" component={CadastroCategoria} />
+      <Route component={Pagina404} />
+    </Switch>
+  </BrowserRouter>,
 
-	// <React.StrictMode>
-	// </React.StrictMode>,
-	document.getElementById('root')
+  // <React.StrictMode>
+  // </React.StrictMode>,
+  document.getElementById('root'),
 );
