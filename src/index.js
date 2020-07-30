@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import CadastroVideo from './pages/cadastro/Video';
 import Menu from './components/Menu';
 import CadastroCategoria from './pages/cadastro/categoria';
+import Footer from './components/Footer';
 
 const Pagina404 = () => (
 	<div className="contender404">
@@ -15,8 +16,9 @@ const Pagina404 = () => (
 		<p>Parece que esta página não existe...</p>
 		<p>Que tal jogar um joguinho supimpa feito na Imersão GameDev? :)</p>
 		<iframe
-			style={{ width: '80vw', height: '40vh' }}
+			style={{ width: '80vw', height: '40vh', margin: '10px 0 20px' }}
 			src="https://editor.p5js.org/Alni/embed/ccP0Z9meS"></iframe>
+		<Footer />
 	</div>
 );
 
