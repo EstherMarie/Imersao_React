@@ -1,9 +1,5 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-mixed-spaces-and-tabs */
-/* eslint-disable no-tabs */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -19,7 +15,7 @@ function CadastroCategoria() {
   const [values, setValues] = useState(valoresIniciais);
 
   function setValue(chave, valor) {
-    // cahve: nome, descrição, etc
+    // chave: nome, descricao, etc
     setValues({
       ...values,
       [chave]: valor, // nome: 'valor'
@@ -27,19 +23,26 @@ function CadastroCategoria() {
   }
 
   function handleChange(infosDoEvento) {
-    /**
-			É o correto, porém está dando erro:
-			const { getAttribute, value } = infosDoEvento.target;
-			setValue(
-				getAttribute('name'),
-				value
-			);
-		*/
     setValue(
       infosDoEvento.target.getAttribute('name'),
       infosDoEvento.target.value,
     );
   }
+
+  useEffect(() => {
+    if (window.location.href.includes('localhost')) {
+      const URL = 'http://localhost:8080/categorias';
+      fetch(URL)
+        .then(async (respostaDoServer) => {
+          if (respostaDoServer.ok) {
+            const resposta = await respostaDoServer.json();
+            setCategorias(resposta);
+            return;
+          }
+          throw new Error('Não foi possível pegar os dados');
+        });
+    }
+  }, []);
 
   return (
     <PageDefault>
@@ -48,13 +51,18 @@ function CadastroCategoria() {
         {values.nome}
       </h1>
 
-      <form
-        onSubmit={function handleSubmit(infosDoEvento) {
-				  infosDoEvento.preventDefault();
-				  setCategorias([...categorias, values]);
-				  setValues(valoresIniciais);
-        }}
+      <form onSubmit={function handleSubmit(infosDoEvento) {
+        infosDoEvento.preventDefault();
+
+        setCategorias([
+          ...categorias,
+          values,
+        ]);
+
+        setValues(valoresIniciais);
+      }}
       >
+
         <FormField
           label="Nome da Categoria"
           type="text"
@@ -71,18 +79,6 @@ function CadastroCategoria() {
           onChange={handleChange}
         />
 
-        {/* <div>
-					<label>
-						Descrição:
-						<textarea
-							type="text"
-							name="descricao"
-							value={values.descricao}
-							onChange={handleChange}
-						/>
-					</label>
-				</div> */}
-
         <FormField
           label="Cor"
           type="color"
@@ -90,17 +86,6 @@ function CadastroCategoria() {
           value={values.cor}
           onChange={handleChange}
         />
-        {/* <div>
-					<label>
-						Cor:
-						<input
-							type="color"
-							name="cor"
-							value={values.cor}
-							onChange={handleChange}
-						/>
-					</label>
-				</div> */}
 
         <Button>
           Cadastrar
@@ -108,10 +93,16 @@ function CadastroCategoria() {
       </form>
 
       <ul>
-        {categorias.map((categoria, indice) => <li key={`${categoria}${indice}`}>{categoria.nome}</li>)}
+        {categorias.map((categoria, indice) => (
+          <li key={`${categoria}${indice}`}>
+            {categoria.titulo}
+          </li>
+        ))}
       </ul>
 
-      <Link to="/">Ir para home</Link>
+      <Link to="/">
+        Ir para home
+      </Link>
     </PageDefault>
   );
 }
